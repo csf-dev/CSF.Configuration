@@ -8,12 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{7B12E9
 		Common\CommonAssemblyInfo.cs = Common\CommonAssemblyInfo.cs
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{AD355647-E323-4982-9E58-FD308EBFA0BB}"
-	ProjectSection(SolutionItems) = preProject
-		utils\build = utils\build
-		utils\bump-versions = utils\bump-versions
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF.Configuration", "CSF.Configuration\CSF.Configuration.csproj", "{8C570A26-CEEB-45D1-9436-745C8DBAE9D8}"
 EndProject
 Global
