@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CSF.Configuration</id>
+    <version>1.0.0</version>
+    <title>CSF.Configuration</title>
+    <authors>CSF Software Ltd</authors>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/csf-dev/CSF.Configuration</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A configuration helper type.</description>
+    <copyright>Copyright 2016</copyright>
+  </metadata>
+  <files>
+    <file src="bin/Release/CSF.Configuration.dll" target="lib/net45" />
+  </files>
+</package>
