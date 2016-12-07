@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CSF.Configuration", "Test.CSF\Test.CSF.Configuration.csproj", "{11DCF35A-6E2A-4C62-B536-14B83FF5AE07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CSF.Configuration", "Test.CSF.Configuration\Test.CSF.Configuration.csproj", "{11DCF35A-6E2A-4C62-B536-14B83FF5AE07}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF.Configuration", "CSF.Configuration\CSF.Configuration.csproj", "{8C570A26-CEEB-45D1-9436-745C8DBAE9D8}"
 EndProject

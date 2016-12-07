@@ -51,8 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="App.config">
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
 </Project>
