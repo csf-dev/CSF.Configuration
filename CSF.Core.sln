@@ -1,12 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CSF", "Test.CSF\Test.CSF.csproj", "{11DCF35A-6E2A-4C62-B536-14B83FF5AE07}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{7B12E9AF-526D-4F1F-93E4-B1AB5AA9AA89}"
-	ProjectSection(SolutionItems) = preProject
-		Common\CommonAssemblyInfo.cs = Common\CommonAssemblyInfo.cs
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CSF.Configuration", "Test.CSF\Test.CSF.Configuration.csproj", "{11DCF35A-6E2A-4C62-B536-14B83FF5AE07}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF.Configuration", "CSF.Configuration\CSF.Configuration.csproj", "{8C570A26-CEEB-45D1-9436-745C8DBAE9D8}"
 EndProject
@@ -24,8 +19,6 @@ Global
 		{8C570A26-CEEB-45D1-9436-745C8DBAE9D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C570A26-CEEB-45D1-9436-745C8DBAE9D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C570A26-CEEB-45D1-9436-745C8DBAE9D8}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -167,6 +160,6 @@ Global
 		$25.NamingStyle = PascalCase
 		$25.IncludeInstanceMembers = True
 		$25.IncludeStaticEntities = True
-		version = 4.1.1
+		version = 1.0.0
 	EndGlobalSection
 EndGlobal
