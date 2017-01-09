@@ -34,18 +34,73 @@ namespace Test.CSF.Configuration
   public class TestConfigurationHelper
   {
     [Test]
-    public void TestGetDefaultConfigurationPath()
+    public void GetDefaultConfigurationPath_returns_default_path_based_on_namespace_when_no_attribute_present()
     {
-      string defaultPath = ConfigurationHelper.GetDefaultConfigurationPath<MockConfigurationSection>();
-      Assert.AreEqual("Test/CSF/Configuration/MockConfigurationSection", defaultPath);
+      string path = ConfigurationHelper.GetDefaultConfigurationPath<MockConfigurationSection>();
+      Assert.AreEqual("Test/CSF/Configuration/MockConfigurationSection", path);
     }
 
     [Test]
-    public void TestGetSection()
+    public void GetDefaultConfigurationPath_returns_specified_path_when_attribute_is_present()
     {
-      MockConfigurationSection section = ConfigurationHelper.GetSection<MockConfigurationSection>();
-      Assert.IsNotNull(section, "Section is not null");
-      Assert.AreEqual("Configured value", section.MockProperty, "Property value correct");
+      string path = ConfigurationHelper.GetDefaultConfigurationPath<MockConfigurationSectionWithExplicitPath>();
+      Assert.AreEqual("foo/bar/baz", path);
+    }
+
+    [Test]
+    [Description("This test depends upon data in the unit test config file")]
+    public void GetSection_with_default_path_returns_instance_when_present_in_config_file()
+    {
+      var result = ConfigurationHelper.GetSection<MockConfigurationSection>();
+      Assert.IsNotNull(result);
+    }
+
+    [Test]
+    [Description("This test depends upon data in the unit test config file")]
+    public void GetSection_with_default_path_returns_instance_with_correct_data()
+    {
+      var result = ConfigurationHelper.GetSection<MockConfigurationSection>();
+      Assert.AreEqual("Configured value", result.MockProperty);
+    }
+
+    [Test]
+    [Description("This test depends upon data in the unit test config file")]
+    public void GetSection_with_attribute_path_returns_instance_when_present_in_config_file()
+    {
+      var result = ConfigurationHelper.GetSection<MockConfigurationSectionWithExplicitPath>();
+      Assert.IsNotNull(result);
+    }
+
+    [Test]
+    [Description("This test depends upon data in the unit test config file")]
+    public void GetSection_with_attribute_path_returns_instance_with_correct_data()
+    {
+      var result = ConfigurationHelper.GetSection<MockConfigurationSectionWithExplicitPath>();
+      Assert.AreEqual("One", result.MockProperty);
+    }
+
+    [Test]
+    [Description("This test depends upon data in the unit test config file")]
+    public void GetSection_with_specified_path_returns_instance_when_present_in_config_file()
+    {
+      var result = ConfigurationHelper.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("foo/bar/wibble");
+      Assert.IsNotNull(result);
+    }
+
+    [Test]
+    [Description("This test depends upon data in the unit test config file")]
+    public void GetSection_with_specified_path_returns_instance_with_correct_data()
+    {
+      var result = ConfigurationHelper.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("foo/bar/wibble");
+      Assert.AreEqual("Two", result.MockProperty);
+    }
+
+    [Test]
+    [Description("This test depends upon data in the unit test config file")]
+    public void GetSection_with_nonexistent_path_returns_null()
+    {
+      var result = ConfigurationHelper.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("does/not/exist");
+      Assert.IsNull(result);
     }
   }
 }

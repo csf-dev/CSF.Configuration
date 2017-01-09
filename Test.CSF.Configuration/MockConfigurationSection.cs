@@ -26,10 +26,40 @@
 
 using System;
 using System.Configuration;
+using CSF.Configuration;
 
 namespace Test.CSF.Configuration
 {
   public class MockConfigurationSection : ConfigurationSection
+  {
+    [ConfigurationProperty(@"MockProperty", IsRequired = false, DefaultValue = "")]
+    public virtual string MockProperty
+    {
+      get {
+        return (string) this["MockProperty"];
+      }
+      set {
+        this["MockProperty"] = value;
+      }
+    }
+  }
+
+  [ConfigurationPath("foo/bar/baz")]
+  public class MockConfigurationSectionWithExplicitPath : ConfigurationSection
+  {
+    [ConfigurationProperty(@"MockProperty", IsRequired = false, DefaultValue = "")]
+    public virtual string MockProperty
+    {
+      get {
+        return (string) this["MockProperty"];
+      }
+      set {
+        this["MockProperty"] = value;
+      }
+    }
+  }
+
+  public class AnotherMockConfigurationSectionWithExplicitPath : ConfigurationSection
   {
     [ConfigurationProperty(@"MockProperty", IsRequired = false, DefaultValue = "")]
     public virtual string MockProperty
