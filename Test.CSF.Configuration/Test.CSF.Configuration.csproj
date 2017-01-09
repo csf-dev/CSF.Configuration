@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MockConfigurationSection.cs" />
-    <Compile Include="TestConfigurationHelper.cs" />
+    <Compile Include="TestConfigurationReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

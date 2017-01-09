@@ -44,6 +44,8 @@
     <Compile Include="Resources\ExceptionMessages.Designer.cs">
       <DependentUpon>ExceptionMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="IConfigurationReader.cs" />
+    <Compile Include="ConfigurationReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

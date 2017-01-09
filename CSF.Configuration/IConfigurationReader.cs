@@ -1,10 +1,10 @@
-//
-// ConfigurationHelper.cs
+﻿//
+// IConfigurationReader.cs
 //
 // Author:
-//       Craig Fowler <craig@csf-dev.com>
+//       Craig Fowler <craig@craigfowler.me.uk>
 //
-// Copyright (c) 2015 CSF Software Limited
+// Copyright (c) 2017 Craig Fowler
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,27 +23,16 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
 using System;
 using System.Configuration;
-using System.Reflection;
 
 namespace CSF.Configuration
 {
   /// <summary>
-  /// Type providing convenience methods relating to configuration.
+  /// Interface for a service which reads information from the XML configuration file.
   /// </summary>
-  [Obsolete("Instead, use an instance of IConfigurationReader, such as ConfigurationReader")]
-  public static class ConfigurationHelper
+  public interface IConfigurationReader
   {
-    #region fields
-
-    private static readonly IConfigurationReader _readerSingleton;
-
-    #endregion
-
-    #region methods
-
     /// <summary>
     /// Gets a type that represents a <see cref="ConfigurationSection"/>.
     /// </summary>
@@ -63,10 +52,7 @@ namespace CSF.Configuration
     /// <typeparam name='TSection'>
     /// The type of configuration section to retrieve.
     /// </typeparam>
-    public static TSection GetSection<TSection>() where TSection : ConfigurationSection
-    {
-      return _readerSingleton.GetSection<TSection>();
-    }
+    TSection GetSection<TSection>() where TSection : ConfigurationSection;
 
     /// <summary>
     /// Gets a type that represents a <see cref="ConfigurationSection"/>.
@@ -83,16 +69,13 @@ namespace CSF.Configuration
     /// <returns>
     /// The section, or a <c>null</c> reference.
     /// </returns>
-    /// <param name='sectionPath'>
+    /// <param name='path'>
     /// The path (in the configuration file) to the desired section.
     /// </param>
     /// <typeparam name='TSection'>
     /// The type of configuration section to retrieve.
     /// </typeparam>
-    public static TSection GetSection<TSection>(string sectionPath) where TSection : ConfigurationSection
-    {
-      return _readerSingleton.GetSection<TSection>(sectionPath);
-    }
+    TSection GetSection<TSection>(string path) where TSection : ConfigurationSection;
 
     /// <summary>
     /// Gets the default configuration path for a type that implements <see cref="ConfigurationSection"/>.
@@ -113,24 +96,7 @@ namespace CSF.Configuration
     /// <typeparam name='TSection'>
     /// The type of configuration section for which we want to generate a default path.
     /// </typeparam>
-    public static string GetDefaultConfigurationPath<TSection>() where TSection : ConfigurationSection
-    {
-      return _readerSingleton.GetDefaultConfigurationPath<TSection>();
-    }
-
-    #endregion
-
-    #region constructor
-
-    /// <summary>
-    /// Initializes the <see cref="CSF.Configuration.ConfigurationHelper"/> class.
-    /// </summary>
-    static ConfigurationHelper()
-    {
-      _readerSingleton = new ConfigurationReader();
-    }
-
-    #endregion
+    string GetDefaultConfigurationPath<TSection>() where TSection : ConfigurationSection;
   }
 }
 

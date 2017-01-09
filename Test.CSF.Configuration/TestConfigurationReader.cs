@@ -1,5 +1,5 @@
 //
-// TestConfigurationHelper.cs
+// TestConfigurationReader.cs
 //
 // Author:
 //       Craig Fowler <craig@csf-dev.com>
@@ -31,19 +31,37 @@ using CSF.Configuration;
 namespace Test.CSF.Configuration
 {
   [TestFixture]
-  public class TestConfigurationHelper
+  public class TestConfigurationReader
   {
+    #region fields
+
+    private IConfigurationReader _sut;
+
+    #endregion
+
+    #region setup
+
+    [SetUp]
+    public void Setup()
+    {
+      _sut = new ConfigurationReader();
+    }
+
+    #endregion
+
+    #region tests
+
     [Test]
     public void GetDefaultConfigurationPath_returns_default_path_based_on_namespace_when_no_attribute_present()
     {
-      string path = ConfigurationHelper.GetDefaultConfigurationPath<MockConfigurationSection>();
+      string path = _sut.GetDefaultConfigurationPath<MockConfigurationSection>();
       Assert.AreEqual("Test/CSF/Configuration/MockConfigurationSection", path);
     }
 
     [Test]
     public void GetDefaultConfigurationPath_returns_specified_path_when_attribute_is_present()
     {
-      string path = ConfigurationHelper.GetDefaultConfigurationPath<MockConfigurationSectionWithExplicitPath>();
+      string path = _sut.GetDefaultConfigurationPath<MockConfigurationSectionWithExplicitPath>();
       Assert.AreEqual("foo/bar/baz", path);
     }
 
@@ -51,7 +69,7 @@ namespace Test.CSF.Configuration
     [Description("This test depends upon data in the unit test config file")]
     public void GetSection_with_default_path_returns_instance_when_present_in_config_file()
     {
-      var result = ConfigurationHelper.GetSection<MockConfigurationSection>();
+      var result = _sut.GetSection<MockConfigurationSection>();
       Assert.IsNotNull(result);
     }
 
@@ -59,7 +77,7 @@ namespace Test.CSF.Configuration
     [Description("This test depends upon data in the unit test config file")]
     public void GetSection_with_default_path_returns_instance_with_correct_data()
     {
-      var result = ConfigurationHelper.GetSection<MockConfigurationSection>();
+      var result = _sut.GetSection<MockConfigurationSection>();
       Assert.AreEqual("Configured value", result.MockProperty);
     }
 
@@ -67,7 +85,7 @@ namespace Test.CSF.Configuration
     [Description("This test depends upon data in the unit test config file")]
     public void GetSection_with_attribute_path_returns_instance_when_present_in_config_file()
     {
-      var result = ConfigurationHelper.GetSection<MockConfigurationSectionWithExplicitPath>();
+      var result = _sut.GetSection<MockConfigurationSectionWithExplicitPath>();
       Assert.IsNotNull(result);
     }
 
@@ -75,7 +93,7 @@ namespace Test.CSF.Configuration
     [Description("This test depends upon data in the unit test config file")]
     public void GetSection_with_attribute_path_returns_instance_with_correct_data()
     {
-      var result = ConfigurationHelper.GetSection<MockConfigurationSectionWithExplicitPath>();
+      var result = _sut.GetSection<MockConfigurationSectionWithExplicitPath>();
       Assert.AreEqual("One", result.MockProperty);
     }
 
@@ -83,7 +101,7 @@ namespace Test.CSF.Configuration
     [Description("This test depends upon data in the unit test config file")]
     public void GetSection_with_specified_path_returns_instance_when_present_in_config_file()
     {
-      var result = ConfigurationHelper.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("foo/bar/wibble");
+      var result = _sut.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("foo/bar/wibble");
       Assert.IsNotNull(result);
     }
 
@@ -91,7 +109,7 @@ namespace Test.CSF.Configuration
     [Description("This test depends upon data in the unit test config file")]
     public void GetSection_with_specified_path_returns_instance_with_correct_data()
     {
-      var result = ConfigurationHelper.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("foo/bar/wibble");
+      var result = _sut.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("foo/bar/wibble");
       Assert.AreEqual("Two", result.MockProperty);
     }
 
@@ -99,9 +117,11 @@ namespace Test.CSF.Configuration
     [Description("This test depends upon data in the unit test config file")]
     public void GetSection_with_nonexistent_path_returns_null()
     {
-      var result = ConfigurationHelper.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("does/not/exist");
+      var result = _sut.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("does/not/exist");
       Assert.IsNull(result);
     }
+
+    #endregion
   }
 }
 
