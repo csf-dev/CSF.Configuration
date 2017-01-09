@@ -52,72 +52,72 @@ namespace Test.CSF.Configuration
     #region tests
 
     [Test]
-    public void GetDefaultConfigurationPath_returns_default_path_based_on_namespace_when_no_attribute_present()
+    public void GetDefaultSectionPath_returns_default_path_based_on_namespace_when_no_attribute_present()
     {
-      string path = _sut.GetDefaultConfigurationPath<MockConfigurationSection>();
+      string path = _sut.GetDefaultSectionPath<MockConfigurationSection>();
       Assert.AreEqual("Test/CSF/Configuration/MockConfigurationSection", path);
     }
 
     [Test]
-    public void GetDefaultConfigurationPath_returns_specified_path_when_attribute_is_present()
+    public void GetDefaultSectionPath_returns_specified_path_when_attribute_is_present()
     {
-      string path = _sut.GetDefaultConfigurationPath<MockConfigurationSectionWithExplicitPath>();
+      string path = _sut.GetDefaultSectionPath<MockConfigurationSectionWithExplicitPath>();
       Assert.AreEqual("foo/bar/baz", path);
     }
 
     [Test]
     [Description("This test depends upon data in the unit test config file")]
-    public void GetSection_with_default_path_returns_instance_when_present_in_config_file()
+    public void ReadSection_with_default_path_returns_instance_when_present_in_config_file()
     {
-      var result = _sut.GetSection<MockConfigurationSection>();
+      var result = _sut.ReadSection<MockConfigurationSection>();
       Assert.IsNotNull(result);
     }
 
     [Test]
     [Description("This test depends upon data in the unit test config file")]
-    public void GetSection_with_default_path_returns_instance_with_correct_data()
+    public void ReadSection_with_default_path_returns_instance_with_correct_data()
     {
-      var result = _sut.GetSection<MockConfigurationSection>();
+      var result = _sut.ReadSection<MockConfigurationSection>();
       Assert.AreEqual("Configured value", result.MockProperty);
     }
 
     [Test]
     [Description("This test depends upon data in the unit test config file")]
-    public void GetSection_with_attribute_path_returns_instance_when_present_in_config_file()
+    public void ReadSection_with_attribute_path_returns_instance_when_present_in_config_file()
     {
-      var result = _sut.GetSection<MockConfigurationSectionWithExplicitPath>();
+      var result = _sut.ReadSection<MockConfigurationSectionWithExplicitPath>();
       Assert.IsNotNull(result);
     }
 
     [Test]
     [Description("This test depends upon data in the unit test config file")]
-    public void GetSection_with_attribute_path_returns_instance_with_correct_data()
+    public void ReadSection_with_attribute_path_returns_instance_with_correct_data()
     {
-      var result = _sut.GetSection<MockConfigurationSectionWithExplicitPath>();
+      var result = _sut.ReadSection<MockConfigurationSectionWithExplicitPath>();
       Assert.AreEqual("One", result.MockProperty);
     }
 
     [Test]
     [Description("This test depends upon data in the unit test config file")]
-    public void GetSection_with_specified_path_returns_instance_when_present_in_config_file()
+    public void ReadSection_with_specified_path_returns_instance_when_present_in_config_file()
     {
-      var result = _sut.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("foo/bar/wibble");
+      var result = _sut.ReadSection<AnotherMockConfigurationSectionWithExplicitPath>("foo/bar/wibble");
       Assert.IsNotNull(result);
     }
 
     [Test]
     [Description("This test depends upon data in the unit test config file")]
-    public void GetSection_with_specified_path_returns_instance_with_correct_data()
+    public void ReadSection_with_specified_path_returns_instance_with_correct_data()
     {
-      var result = _sut.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("foo/bar/wibble");
+      var result = _sut.ReadSection<AnotherMockConfigurationSectionWithExplicitPath>("foo/bar/wibble");
       Assert.AreEqual("Two", result.MockProperty);
     }
 
     [Test]
     [Description("This test depends upon data in the unit test config file")]
-    public void GetSection_with_nonexistent_path_returns_null()
+    public void ReadSection_with_nonexistent_path_returns_null()
     {
-      var result = _sut.GetSection<AnotherMockConfigurationSectionWithExplicitPath>("does/not/exist");
+      var result = _sut.ReadSection<AnotherMockConfigurationSectionWithExplicitPath>("does/not/exist");
       Assert.IsNull(result);
     }
 

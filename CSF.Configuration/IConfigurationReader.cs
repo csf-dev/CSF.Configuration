@@ -52,7 +52,7 @@ namespace CSF.Configuration
     /// <typeparam name='TSection'>
     /// The type of configuration section to retrieve.
     /// </typeparam>
-    TSection GetSection<TSection>() where TSection : ConfigurationSection;
+    TSection ReadSection<TSection>() where TSection : ConfigurationSection;
 
     /// <summary>
     /// Gets a type that represents a <see cref="ConfigurationSection"/>.
@@ -75,7 +75,7 @@ namespace CSF.Configuration
     /// <typeparam name='TSection'>
     /// The type of configuration section to retrieve.
     /// </typeparam>
-    TSection GetSection<TSection>(string path) where TSection : ConfigurationSection;
+    TSection ReadSection<TSection>(string path) where TSection : ConfigurationSection;
 
     /// <summary>
     /// Gets the default configuration path for a type that implements <see cref="ConfigurationSection"/>.
@@ -96,7 +96,7 @@ namespace CSF.Configuration
     /// <typeparam name='TSection'>
     /// The type of configuration section for which we want to generate a default path.
     /// </typeparam>
-    string GetDefaultConfigurationPath<TSection>() where TSection : ConfigurationSection;
+    string GetDefaultSectionPath<TSection>() where TSection : ConfigurationSection;
   }
 }
 

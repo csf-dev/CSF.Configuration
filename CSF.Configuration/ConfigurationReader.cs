@@ -55,10 +55,10 @@ namespace CSF.Configuration
     /// <typeparam name='TSection'>
     /// The type of configuration section to retrieve.
     /// </typeparam>
-    public TSection GetSection<TSection>() where TSection : ConfigurationSection
+    public TSection ReadSection<TSection>() where TSection : ConfigurationSection
     {
-      string sectionPath = GetDefaultConfigurationPath<TSection>();
-      return GetSection<TSection>(sectionPath);
+      string sectionPath = GetDefaultSectionPath<TSection>();
+      return ReadSection<TSection>(sectionPath);
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ namespace CSF.Configuration
     /// <typeparam name='TSection'>
     /// The type of configuration section to retrieve.
     /// </typeparam>
-    public TSection GetSection<TSection>(string path) where TSection : ConfigurationSection
+    public TSection ReadSection<TSection>(string path) where TSection : ConfigurationSection
     {
       object configObject = ConfigurationManager.GetSection(path);
       return configObject as TSection;
@@ -107,7 +107,7 @@ namespace CSF.Configuration
     /// <typeparam name='TSection'>
     /// The type of configuration section for which we want to generate a default path.
     /// </typeparam>
-    public string GetDefaultConfigurationPath<TSection>() where TSection : ConfigurationSection
+    public string GetDefaultSectionPath<TSection>() where TSection : ConfigurationSection
     {
       var type = typeof(TSection);
 

@@ -65,7 +65,7 @@ namespace CSF.Configuration
     /// </typeparam>
     public static TSection GetSection<TSection>() where TSection : ConfigurationSection
     {
-      return _readerSingleton.GetSection<TSection>();
+      return _readerSingleton.ReadSection<TSection>();
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ namespace CSF.Configuration
     /// </typeparam>
     public static TSection GetSection<TSection>(string sectionPath) where TSection : ConfigurationSection
     {
-      return _readerSingleton.GetSection<TSection>(sectionPath);
+      return _readerSingleton.ReadSection<TSection>(sectionPath);
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ namespace CSF.Configuration
     /// </typeparam>
     public static string GetDefaultConfigurationPath<TSection>() where TSection : ConfigurationSection
     {
-      return _readerSingleton.GetDefaultConfigurationPath<TSection>();
+      return _readerSingleton.GetDefaultSectionPath<TSection>();
     }
 
     #endregion
