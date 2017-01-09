@@ -26,6 +26,7 @@
 
 using System;
 using System.Configuration;
+using System.Reflection;
 
 namespace CSF.Configuration
 {
@@ -104,8 +105,15 @@ namespace CSF.Configuration
     /// </typeparam>
     public static string GetDefaultConfigurationPath<TSection>() where TSection : ConfigurationSection
     {
-      Type sectionType = typeof(TSection);
-      return sectionType.FullName.Replace('.', '/');
+      var type = typeof(TSection);
+
+      var pathAttribute = type.GetCustomAttribute<ConfigurationPathAttribute>();
+      if(pathAttribute != null)
+      {
+        return pathAttribute.Path;
+      }
+
+      return type.FullName.Replace('.', '/');
     }
   }
 }
