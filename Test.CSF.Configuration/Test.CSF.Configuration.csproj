@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Test.CSF.Configuration</RootNamespace>
     <AssemblyName>Test.CSF.Configuration</AssemblyName>
-    <ReleaseVersion>1.0.0</ReleaseVersion>
+    <ReleaseVersion>1.1.0</ReleaseVersion>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MockConfigurationSection.cs" />
-    <Compile Include="TestConfigurationHelper.cs" />
+    <Compile Include="TestConfigurationReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
