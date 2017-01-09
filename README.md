@@ -1,4 +1,4 @@
-# Configuration helper
+# XML configuration reader
 This library introduces an interface `IConfigurationReader` and a default implementation `ConfigurationReader`.
 This very simple service provides a way to avoid some of the boilerplate code when getting a `System.Configuration.ConfigurationSection` from an XML configuration file.
 
