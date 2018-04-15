@@ -2,14 +2,14 @@
 <package>
   <metadata>
     <id>CSF.Configuration</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <title>CSF.Configuration</title>
     <authors>CSF Software Ltd</authors>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/csf-dev/CSF.Configuration</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A configuration helper type.</description>
-    <copyright>Copyright 2016</copyright>
+    <description>Types to make reading from an XML configuration file a little simpler.</description>
+    <copyright>Copyright 2017</copyright>
   </metadata>
   <files>
     <file src="bin/Release/CSF.Configuration.dll" target="lib/net45" />
