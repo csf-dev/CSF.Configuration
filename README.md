@@ -1,47 +1,72 @@
-# XML configuration reader
-This library introduces an interface `IConfigurationReader` and a default implementation `ConfigurationReader`.
-This very simple service provides a way to avoid some of the boilerplate code when getting a `System.Configuration.ConfigurationSection` from an XML configuration file.
+# Abstraction for ConfigurationManager
 
-## Getting a section from its default path
+This very small library provides the interface `CSF.Configuration.IConfigurationReader`.
+This is an abstraction around `System.Configuration.ConfigurationManager`, either from .NET Framework FCL
+or [the NuGet package](https://www.nuget.org/packages/System.Configuration.ConfigurationManager).
+
+It is provided to read objects that implement `ConfigurationSection` from your configuration file.
+
+_It is expected that version 1.2 of this library will be the last.  .NET is moving away from XML configuration files in favour of JSON.  `ConfigurationManager` is a legacy API now and whilst it is still supported, it is not favoured for new development._
+
+## Usage
+
+Create an instance of `CSF.Configuration.ConfigurationReader` and consume it in your logic via the interface.
+Here is a demonstration of usage.
+
+### Configuration section
+
 ```csharp
-IConfigurationReader reader = GetConfigurationReader();
-
-var myConfig = reader.ReadSection<MyConfigurationSection>();
-```
-
-By default, the configuration file path queried is based upon namespace-qualified-name of the configuration section.
-Periods are replaced with slashes and the result used as the path.
-In the following example, the reader would look in the path `Foo/Bar/Baz/MyConfigurationSection`.
-
-```csharp
-namespace Foo.Bar.Baz
+namespace Sample.Namespace
 {
-  public class MyConfigurationSection : ConfigurationSection { /* Implementation omitted */ }
+    public class MyConfigSection : ConfigurationSection
+    {
+        [ConfigurationProperty(nameof(SampleProperty))]
+        public string SampleProperty
+        {
+            get => (string) this[nameof(SampleProperty)];
+            set => this[nameof(SampleProperty)] = value;
+        }
+    }
 }
 ```
 
-## Specifying the default path in an attribute
-You may override the default path at which the reader looks for a configuration section, using an attribute.
-In the following example, the reader would look in the path `my/custom/path`, ignoring the namespace and type name.
+### Configuration file
 
-```csharp
-namespace Foo.Bar.Baz
-{
-  [ConfigurationPath("my/custom/path")]
-  public class MyConfigurationSection : ConfigurationSection { /* Implementation omitted */ }
-}
+```xml
+<?xml version="1.0"?>
+<configuration>
+    <configSections>
+        <sectionGroup name="Sample">
+            <sectionGroup name="Namespace">
+                <section name="MyConfigSection"
+                         type="Sample.Namespace.MyConfigSection, My.Assembly.Name" />
+            </sectionGroup>
+        </sectionGroup>
+    </configSections>
+    <Sample>
+        <Namespace>
+            <MyConfigSection SampleProperty="Configured value" />
+        </Namespace>
+    </Sample>
+</configuration>
 ```
 
-## Specifying a path
-If a string parameter is provided to the `ReadSection<T>` method, then the specified path is used, and neither of the two mechanisms above are used.
-
-## Getting just the default path
-Finally, the reader provides a method to get the default path for a section.
-This returns either the path specified by an attribute (if it is present), or the path based upon the namespace-qualified-name:
+### Consumer
 
 ```csharp
-var path = reader.GetDefaultSectionPath<MyConfigurationSection>();
+// Or dependency-inject a CSF.Configuration.IConfigurationReader
+var reader = new CSF.Configuration.ConfigurationReader();
+var myConfig = reader.ReadSection<Sample.Namespace.MyConfigSection>();
 ```
+
+## Configuration paths & customisation
+
+By default, the path within the configuration file to find a section is based upon its fully qualified namespace name.
+In the example above the configuration section is named `Sample.Namespace.MyConfigSection`.
+The path used by default is thus `Sample/Namespace/MyConfigSection`.
+
+This path may be explicitly provided at the point of consumption if desired, via an overload of the `ReadSection` method which takes a string.
+Alternatively, you may decorate your configuration section class with the `[ConfigurationPath("custom/XML/path")]` attribute, which declares a different/explicit default path for reading that section.
 
 ## Open source license
 All source files within this project are released as open source software,
