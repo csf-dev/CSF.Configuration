@@ -28,75 +28,75 @@ using System.Configuration;
 
 namespace CSF.Configuration
 {
-  /// <summary>
-  /// Interface for a service which reads information from the XML configuration file.
-  /// </summary>
-  public interface IConfigurationReader
-  {
     /// <summary>
-    /// Gets a type that represents a <see cref="ConfigurationSection"/>.
+    /// Interface for a service which reads information from the XML configuration file.
     /// </summary>
-    /// <remarks>
-    /// <para>
-    /// This method uses the default configuration path, retrieved using
-    /// <see cref="M:GetDefaultConfigurationPath{TSection}"/>.
-    /// </para>
-    /// <para>
-    /// If the section is not found at the appropriate configuration path, or if the configuration section found at that
-    /// path is not of the requested type then a <c>null</c> reference is returned instead.
-    /// </para>
-    /// </remarks>
-    /// <returns>
-    /// The section, or a <c>null</c> reference.
-    /// </returns>
-    /// <typeparam name='TSection'>
-    /// The type of configuration section to retrieve.
-    /// </typeparam>
-    TSection ReadSection<TSection>() where TSection : ConfigurationSection;
+    public interface IConfigurationReader
+    {
+        /// <summary>
+        /// Gets a type that represents a <see cref="ConfigurationSection"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This method uses the default configuration path, retrieved using
+        /// <see cref="M:GetDefaultConfigurationPath{TSection}"/>.
+        /// </para>
+        /// <para>
+        /// If the section is not found at the appropriate configuration path, or if the configuration section found at that
+        /// path is not of the requested type then a <c>null</c> reference is returned instead.
+        /// </para>
+        /// </remarks>
+        /// <returns>
+        /// The section, or a <c>null</c> reference.
+        /// </returns>
+        /// <typeparam name='TSection'>
+        /// The type of configuration section to retrieve.
+        /// </typeparam>
+        TSection ReadSection<TSection>() where TSection : ConfigurationSection;
 
-    /// <summary>
-    /// Gets a type that represents a <see cref="ConfigurationSection"/>.
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    /// This method uses a user-supplied path within the configuration file.
-    /// </para>
-    /// <para>
-    /// If the section is not found at the appropriate configuration path, or if the configuration section found at that
-    /// path is not of the requested type then a <c>null</c> reference is returned instead.
-    /// </para>
-    /// </remarks>
-    /// <returns>
-    /// The section, or a <c>null</c> reference.
-    /// </returns>
-    /// <param name='path'>
-    /// The path (in the configuration file) to the desired section.
-    /// </param>
-    /// <typeparam name='TSection'>
-    /// The type of configuration section to retrieve.
-    /// </typeparam>
-    TSection ReadSection<TSection>(string path) where TSection : ConfigurationSection;
+        /// <summary>
+        /// Gets a type that represents a <see cref="ConfigurationSection"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This method uses a user-supplied path within the configuration file.
+        /// </para>
+        /// <para>
+        /// If the section is not found at the appropriate configuration path, or if the configuration section found at that
+        /// path is not of the requested type then a <c>null</c> reference is returned instead.
+        /// </para>
+        /// </remarks>
+        /// <returns>
+        /// The section, or a <c>null</c> reference.
+        /// </returns>
+        /// <param name='path'>
+        /// The path (in the configuration file) to the desired section.
+        /// </param>
+        /// <typeparam name='TSection'>
+        /// The type of configuration section to retrieve.
+        /// </typeparam>
+        TSection ReadSection<TSection>(string path) where TSection : ConfigurationSection;
 
-    /// <summary>
-    /// Gets the default configuration path for a type that implements <see cref="ConfigurationSection"/>.
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    /// For configuration sections decorated with <see cref="ConfigurationPathAttribute"/>, this method returns the
-    /// path specified in the attribute.
-    /// </para>
-    /// <para>
-    /// For all other types, the return value is equivalent to the full name of the specified type, substituting the
-    /// period <c>'.'</c> character with a forward-slash character <c>'/'</c>
-    /// </para>
-    /// </remarks>
-    /// <returns>
-    /// The default path (in the configuration file) to the specified section.
-    /// </returns>
-    /// <typeparam name='TSection'>
-    /// The type of configuration section for which we want to generate a default path.
-    /// </typeparam>
-    string GetDefaultSectionPath<TSection>() where TSection : ConfigurationSection;
-  }
+        /// <summary>
+        /// Gets the default configuration path for a type that implements <see cref="ConfigurationSection"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// For configuration sections decorated with <see cref="ConfigurationPathAttribute"/>, this method returns the
+        /// path specified in the attribute.
+        /// </para>
+        /// <para>
+        /// For all other types, the return value is equivalent to the full name of the specified type, substituting the
+        /// period <c>'.'</c> character with a forward-slash character <c>'/'</c>
+        /// </para>
+        /// </remarks>
+        /// <returns>
+        /// The default path (in the configuration file) to the specified section.
+        /// </returns>
+        /// <typeparam name='TSection'>
+        /// The type of configuration section for which we want to generate a default path.
+        /// </typeparam>
+        string GetDefaultSectionPath<TSection>() where TSection : ConfigurationSection;
+    }
 }
 

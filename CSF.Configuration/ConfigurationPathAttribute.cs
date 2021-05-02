@@ -27,53 +27,41 @@ using System;
 
 namespace CSF.Configuration
 {
-  /// <summary>
-  /// Attribute used to indicate the path (in a configuration file) where this class is found.
-  /// </summary>
-  /// <remarks>
-  /// <para>
-  /// By default, configuration types are found at a path based upon their namespace.  This attributes permits
-  /// overriding that and specifying an alternative path.
-  /// </para>
-  /// </remarks>
-  [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-  public class ConfigurationPathAttribute : Attribute
-  {
-    #region properties
-
     /// <summary>
-    /// Gets the configuration path.
+    /// Attribute used to indicate the path (in a configuration file) where this class is found.
     /// </summary>
-    /// <value>The path.</value>
-    public string Path
+    /// <remarks>
+    /// <para>
+    /// By default, configuration types are found at a path based upon their namespace.  This attributes permits
+    /// overriding that and specifying an alternative path.
+    /// </para>
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    public class ConfigurationPathAttribute : Attribute
     {
-      get;
-      private set;
+        /// <summary>
+        /// Gets the configuration path.
+        /// </summary>
+        /// <value>The path.</value>
+        public string Path
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CSF.Configuration.ConfigurationPathAttribute"/> class.
+        /// </summary>
+        /// <param name="path">Path.</param>
+        public ConfigurationPathAttribute(string path)
+        {
+            if(path == null)
+                throw new ArgumentNullException(nameof(path));
+            if(path.Length == 0)
+                throw new FormatException(Resources.ExceptionMessages.PathStringMustNotBeEmpty);
+
+            Path = path;
+        }
     }
-
-    #endregion
-
-    #region constructor
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CSF.Configuration.ConfigurationPathAttribute"/> class.
-    /// </summary>
-    /// <param name="path">Path.</param>
-    public ConfigurationPathAttribute(string path)
-    {
-      if(path == null)
-      {
-        throw new ArgumentNullException(nameof(path));
-      }
-      if(path.Length == 0)
-      {
-        throw new FormatException(Resources.ExceptionMessages.PathStringMustNotBeEmpty);
-      }
-
-      Path = path;
-    }
-
-    #endregion
-  }
 }
 
