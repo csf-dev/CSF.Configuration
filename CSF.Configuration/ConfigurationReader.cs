@@ -29,98 +29,94 @@ using System.Reflection;
 
 namespace CSF.Configuration
 {
-  /// <summary>
-  /// Default implementation of <see cref="IConfigurationReader"/> which uses the <c>ConfigurationManager</c>.
-  /// </summary>
-  public class ConfigurationReader : IConfigurationReader
-  {
-    #region methods
-
     /// <summary>
-    /// Gets a type that represents a <see cref="ConfigurationSection"/>.
+    /// Default implementation of <see cref="IConfigurationReader"/> which uses the <c>ConfigurationManager</c>.
     /// </summary>
-    /// <remarks>
-    /// <para>
-    /// This method uses the default configuration path, retrieved using
-    /// <see cref="M:GetDefaultConfigurationPath{TSection}"/>.
-    /// </para>
-    /// <para>
-    /// If the section is not found at the appropriate configuration path, or if the configuration section found at that
-    /// path is not of the requested type then a <c>null</c> reference is returned instead.
-    /// </para>
-    /// </remarks>
-    /// <returns>
-    /// The section, or a <c>null</c> reference.
-    /// </returns>
-    /// <typeparam name='TSection'>
-    /// The type of configuration section to retrieve.
-    /// </typeparam>
-    public TSection ReadSection<TSection>() where TSection : ConfigurationSection
+    public class ConfigurationReader : IConfigurationReader
     {
-      string sectionPath = GetDefaultSectionPath<TSection>();
-      return ReadSection<TSection>(sectionPath);
+        /// <summary>
+        /// Gets a type that represents a <see cref="ConfigurationSection"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This method uses the default configuration path, retrieved using
+        /// <see cref="M:GetDefaultConfigurationPath{TSection}"/>.
+        /// </para>
+        /// <para>
+        /// If the section is not found at the appropriate configuration path, or if the configuration section found at that
+        /// path is not of the requested type then a <c>null</c> reference is returned instead.
+        /// </para>
+        /// </remarks>
+        /// <returns>
+        /// The section, or a <c>null</c> reference.
+        /// </returns>
+        /// <typeparam name='TSection'>
+        /// The type of configuration section to retrieve.
+        /// </typeparam>
+        public TSection ReadSection<TSection>() where TSection : ConfigurationSection
+        {
+            string sectionPath = GetDefaultSectionPath<TSection>();
+            return ReadSection<TSection>(sectionPath);
+        }
+
+        /// <summary>
+        /// Gets a type that represents a <see cref="ConfigurationSection"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This method uses a user-supplied path within the configuration file.
+        /// </para>
+        /// <para>
+        /// If the section is not found at the appropriate configuration path, or if the configuration section found at that
+        /// path is not of the requested type then a <c>null</c> reference is returned instead.
+        /// </para>
+        /// </remarks>
+        /// <returns>
+        /// The section, or a <c>null</c> reference.
+        /// </returns>
+        /// <param name='path'>
+        /// The path (in the configuration file) to the desired section.
+        /// </param>
+        /// <typeparam name='TSection'>
+        /// The type of configuration section to retrieve.
+        /// </typeparam>
+        public TSection ReadSection<TSection>(string path) where TSection : ConfigurationSection
+        {
+            object configObject = ConfigurationManager.GetSection(path);
+            return configObject as TSection;
+        }
+
+        /// <summary>
+        /// Gets the default configuration path for a type that implements <see cref="ConfigurationSection"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// For configuration sections decorated with <see cref="ConfigurationPathAttribute"/>, this method returns the
+        /// path specified in the attribute.
+        /// </para>
+        /// <para>
+        /// For all other types, the return value is equivalent to the full name of the specified type, substituting the
+        /// period <c>'.'</c> character with a forward-slash character <c>'/'</c>
+        /// </para>
+        /// </remarks>
+        /// <returns>
+        /// The default path (in the configuration file) to the specified section.
+        /// </returns>
+        /// <typeparam name='TSection'>
+        /// The type of configuration section for which we want to generate a default path.
+        /// </typeparam>
+        public string GetDefaultSectionPath<TSection>() where TSection : ConfigurationSection
+        {
+            var type = typeof(TSection);
+
+            var pathAttribute = type.GetCustomAttribute<ConfigurationPathAttribute>();
+            if(pathAttribute != null)
+            {
+                return pathAttribute.Path;
+            }
+
+            return type.FullName.Replace('.', '/');
+        }
     }
-
-    /// <summary>
-    /// Gets a type that represents a <see cref="ConfigurationSection"/>.
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    /// This method uses a user-supplied path within the configuration file.
-    /// </para>
-    /// <para>
-    /// If the section is not found at the appropriate configuration path, or if the configuration section found at that
-    /// path is not of the requested type then a <c>null</c> reference is returned instead.
-    /// </para>
-    /// </remarks>
-    /// <returns>
-    /// The section, or a <c>null</c> reference.
-    /// </returns>
-    /// <param name='path'>
-    /// The path (in the configuration file) to the desired section.
-    /// </param>
-    /// <typeparam name='TSection'>
-    /// The type of configuration section to retrieve.
-    /// </typeparam>
-    public TSection ReadSection<TSection>(string path) where TSection : ConfigurationSection
-    {
-      object configObject = ConfigurationManager.GetSection(path);
-      return configObject as TSection;
-    }
-
-    /// <summary>
-    /// Gets the default configuration path for a type that implements <see cref="ConfigurationSection"/>.
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    /// For configuration sections decorated with <see cref="ConfigurationPathAttribute"/>, this method returns the
-    /// path specified in the attribute.
-    /// </para>
-    /// <para>
-    /// For all other types, the return value is equivalent to the full name of the specified type, substituting the
-    /// period <c>'.'</c> character with a forward-slash character <c>'/'</c>
-    /// </para>
-    /// </remarks>
-    /// <returns>
-    /// The default path (in the configuration file) to the specified section.
-    /// </returns>
-    /// <typeparam name='TSection'>
-    /// The type of configuration section for which we want to generate a default path.
-    /// </typeparam>
-    public string GetDefaultSectionPath<TSection>() where TSection : ConfigurationSection
-    {
-      var type = typeof(TSection);
-
-      var pathAttribute = type.GetCustomAttribute<ConfigurationPathAttribute>();
-      if(pathAttribute != null)
-      {
-        return pathAttribute.Path;
-      }
-
-      return type.FullName.Replace('.', '/');
-    }
-
-    #endregion
-  }
 }
 
